@@ -1,5 +1,48 @@
 <template>
   <div class="products min-h-screen pt-16">
+    <!-- 产品轮播图 -->
+    <div class="relative overflow-hidden">
+      <!-- 轮播图片 -->
+      <div class="carousel-container relative h-96">
+        <transition-group name="carousel" tag="div" class="h-full">
+          <div v-for="(slide, index) in carouselSlides" :key="index" v-show="currentSlide === index" class="absolute inset-0 w-full h-full transition-opacity duration-500">
+            <img :src="slide.image" :alt="slide.title" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+              <div class="text-center text-white px-4">
+                <h2 class="text-4xl font-bold mb-4">{{ slide.title }}</h2>
+                <p class="text-xl max-w-3xl mx-auto">{{ slide.description }}</p>
+              </div>
+            </div>
+          </div>
+        </transition-group>
+        
+        <!-- 轮播控制按钮 -->
+        <div class="absolute inset-y-0 left-0 flex items-center">
+          <button @click="prevSlide" class="bg-black bg-opacity-30 hover:bg-opacity-50 text-white w-10 h-10 rounded-full flex items-center justify-center ml-4 focus:outline-none">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+        </div>
+        <div class="absolute inset-y-0 right-0 flex items-center">
+          <button @click="nextSlide" class="bg-black bg-opacity-30 hover:bg-opacity-50 text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 focus:outline-none">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        
+        <!-- 轮播指示器 -->
+        <div class="absolute bottom-4 left-0 right-0">
+          <div class="flex justify-center space-x-2">
+            <button 
+              v-for="(slide, index) in carouselSlides" 
+              :key="index"
+              @click="currentSlide = index"
+              class="w-3 h-3 rounded-full focus:outline-none transition-colors duration-200"
+              :class="currentSlide === index ? 'bg-white' : 'bg-white bg-opacity-50 hover:bg-opacity-75'"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <!-- 产品分类导航 -->
     <div class="bg-green-600 text-white py-4">
       <div class="container mx-auto px-4">
@@ -70,7 +113,7 @@
                 <span class="text-gray-400 text-sm line-through ml-2">¥168.00</span>
               </div>
               <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition duration-300 flex items-center">
-                <i class="fas fa-shopping-cart mr-2"></i>加入购物车
+                <i class="fas fa-eye mr-2"></i>查看详情
               </button>
             </div>
           </div>
@@ -92,14 +135,14 @@
                 <span class="ml-1 text-sm text-gray-600">4.8</span>
               </div>
             </div>
-            <p class="text-gray-600 mb-4">产自福建安溪，香气馥郁持久，滋味醇厚甘鲜，回甘明显，韵味悠长。</p>
+            <p class="text-gray-600 mb-4">产自福建安溪，香气馥郁持久，滋味醇厚甘鲜，回甘明显，风味悠长。</p>
             <div class="flex justify-between items-center">
               <div>
                 <span class="text-green-700 font-bold text-xl">¥168.00</span>
                 <span class="text-gray-400 text-sm line-through ml-2">¥198.00</span>
               </div>
               <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition duration-300 flex items-center">
-                <i class="fas fa-shopping-cart mr-2"></i>加入购物车
+                <i class="fas fa-eye mr-2"></i>查看详情
               </button>
             </div>
           </div>
@@ -128,7 +171,7 @@
                 <span class="text-gray-400 text-sm line-through ml-2">¥258.00</span>
               </div>
               <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition duration-300 flex items-center">
-                <i class="fas fa-shopping-cart mr-2"></i>加入购物车
+                <i class="fas fa-eye mr-2"></i>查看详情
               </button>
             </div>
           </div>
@@ -157,7 +200,7 @@
                 <span class="text-gray-400 text-sm line-through ml-2">¥328.00</span>
               </div>
               <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition duration-300 flex items-center">
-                <i class="fas fa-shopping-cart mr-2"></i>加入购物车
+                <i class="fas fa-eye mr-2"></i>查看详情
               </button>
             </div>
           </div>
@@ -186,7 +229,7 @@
                 <span class="text-gray-400 text-sm line-through ml-2">¥188.00</span>
               </div>
               <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition duration-300 flex items-center">
-                <i class="fas fa-shopping-cart mr-2"></i>加入购物车
+                <i class="fas fa-eye mr-2"></i>查看详情
               </button>
             </div>
           </div>
@@ -215,7 +258,7 @@
                 <span class="text-gray-400 text-sm line-through ml-2">¥228.00</span>
               </div>
               <button class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition duration-300 flex items-center">
-                <i class="fas fa-shopping-cart mr-2"></i>加入购物车
+                <i class="fas fa-eye mr-2"></i>查看详情
               </button>
             </div>
           </div>
@@ -230,6 +273,24 @@ export default {
   name: 'ProductsPage',
   data() {
     return {
+      currentSlide: 0,
+      carouselSlides: [
+        {
+          title: "精选名优茶品",
+          description: "甄选世界各地优质茶叶，传承千年茶道精髓",
+          image: "https://ai-public.mastergo.com/ai/img_res/f6c56b5b436faf810816399d0ed6962a.jpg"
+        },
+        {
+          title: "传统工艺制作",
+          description: "坚持传统制茶工艺，保留茶叶原始风味与营养",
+          image: "https://ai-public.mastergo.com/ai/img_res/97f84c81e7e3139874bbc0850ebff68b.jpg"
+        },
+        {
+          title: "臻品茗茶系列",
+          description: "多种茶类任您选择，满足不同口味需求",
+          image: "https://ai-public.mastergo.com/ai/img_res/efc9edc6edaf3826318cb0edb16ae60e.jpg"
+        }
+      ],
       activeCategory: 'all',
       sortBy: 'popular',
       categories: [
@@ -242,6 +303,26 @@ export default {
         { id: 'herbal', name: '花草茶' }
       ]
     }
+  },
+  methods: {
+    prevSlide() {
+      this.currentSlide = this.currentSlide > 0 ? this.currentSlide - 1 : this.carouselSlides.length - 1;
+    },
+    nextSlide() {
+      this.currentSlide = this.currentSlide < this.carouselSlides.length - 1 ? this.currentSlide + 1 : 0;
+    }
   }
 }
 </script>
+
+<style scoped>
+.carousel-enter-active,
+.carousel-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.carousel-enter-from,
+.carousel-leave-to {
+  opacity: 0;
+}
+</style>
