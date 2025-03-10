@@ -11,8 +11,8 @@
         <div class="relative container mx-auto px-4 h-full flex items-center">
           <div class="max-w-2xl text-white">
             <h1 class="text-6xl font-bold mb-6 ml-20">臻选好茶，品味人生</h1>
-            <p class="text-xl mb-8">源自千年茶道精髓，传承东方茶文化瑰宝</p>
-            <button class="bg-green-600 text-white px-8 py-3 text-lg !rounded-button hover:bg-green-700 transition-colors whitespace-nowrap">
+            <p class="text-xl mb-8 ml-20">源自千年茶道精髓，传承东方茶文化瑰宝</p>
+            <button class="bg-green-600 text-white px-8 py-3 translate-x-[80px] text-lg !rounded-button hover:bg-green-700 transition-colors whitespace-nowrap">
               了解更多
             </button>
           </div>
