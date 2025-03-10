@@ -17,7 +17,7 @@
 
         <div class="flex items-center space-x-4">
           <button @click="toggleTheme" class="theme-btn !rounded-button">
-            <i :class="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'" class="mr-2"></i>
+            <i :class="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'" class="mr-13"></i>
             {{ isDarkMode ? '日间模式' : '夜间模式' }}
           </button>
           <a href="tel:400-888-8888" class="contact-btn !rounded-button dark:bg-green-700 dark:hover:bg-green-800">
